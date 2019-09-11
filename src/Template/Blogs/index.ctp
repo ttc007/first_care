@@ -20,7 +20,7 @@ use Cake\Error\Debugger;
 use Cake\Http\Exception\NotFoundException;
 
 $this->layout = false;
-$this->extend('/Layout/default');
+$this->extend('/Layout/cross-layout');
 
 if (!Configure::read('debug')) :
     throw new NotFoundException(
@@ -33,65 +33,57 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>
-    </title>
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            <?= $cakeDescription ?>
+        </title>
 
-    <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
-    <?= $this->Html->css('home.css') ?>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:500i|Roboto:300,400,700|Roboto+Mono" rel="stylesheet">
-</head>
-<body class="home">
-
-<header class="row">
-    <!-- <div class="header-image"><?= $this->Html->image('cake.logo.svg') ?></div> -->
-    <!-- <div class="header-title">
-        <h1>Welcome to CakePHP <?= Configure::version() ?> Red Velvet. Build fast. Grow solid.</h1>
-    </div> -->
-</header>
-
-<div class="row">
-    <h1>Danh sách Blog <?= $this->Html->link("+", ['action' => 'add']) ?></h1>
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th style="width: 100px">Delete</th>
-        </tr>
-        <?php foreach ($blogs as $blog): ?>
-            <tr>
-                <td>
-                    <?= $this->Html->link($blog->title, ['action' => 'edit', $blog->id]) ?>
-                </td>
-                <td>
-                    <?= $blog->content ?>
-                </td>
-                <td><?= $this->Html->link('Delete', ['action' => 'delete', $blog->id]) ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <div class="paginator w-100">
-        <div class="paginate-count pull-left">
-            <?php
-                $this->GiantPaginate->create($paginator);
-                echo " List ".$this->GiantPaginate->counter();
-            ?>
+        <?= $this->Html->meta('icon') ?>
+        <?= $this->Html->css('base.css') ?>
+        <?= $this->Html->css('style.css') ?>
+        <?= $this->Html->css('home.css') ?>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500i|Roboto:300,400,700|Roboto+Mono" rel="stylesheet">
+    </head>
+    <body class="home">
+        <div class="row mt-5">
+            <h3>Danh sách Blog <?= $this->Html->link("+", ['action' => 'add']) ?></h3>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th style="width: 100px">Delete</th>
+                </tr>
+                <?php foreach ($blogs as $blog): ?>
+                    <tr>
+                        <td>
+                            <?= $this->Html->link($blog->title, ['action' => 'edit', $blog->id]) ?>
+                        </td>
+                        <td>
+                            <?= $blog->content ?>
+                        </td>
+                        <td><?= $this->Html->link('Delete', ['action' => 'delete', $blog->id]) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <div class="paginator w-100">
+                <div class="paginate-count pull-left">
+                    <?php
+                        $this->GiantPaginate->create($paginator);
+                        echo " List ".$this->GiantPaginate->counter();
+                    ?>
+                </div>
+                <ul class="pagination pull-right">
+                    <?php
+                        echo $this->GiantPaginate->prev('«'); 
+                        echo $this->GiantPaginate->numbers(); 
+                        echo $this->GiantPaginate->next('»');
+                    ?>
+                </ul>
+                
+            </div>
         </div>
-        <ul class="pagination pull-right">
-            <?php
-                echo $this->GiantPaginate->prev('«'); 
-                echo $this->GiantPaginate->numbers(); 
-                echo $this->GiantPaginate->next('»');
-            ?>
-        </ul>
-        
-    </div>
-</div>
 
-</body>
+    </body>
 </html>

@@ -33,7 +33,7 @@ use App\DTO\BlogDTO;
  *
  * @link https://book.cakephp.org/3.0/en/controllers/pages-controller.html
  */
-class BlogsController extends AppController
+class BlogsController extends CrossCommunicationController
 {
     var $blogService;
 
